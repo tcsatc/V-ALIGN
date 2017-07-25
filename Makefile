@@ -4,8 +4,6 @@ RM=rm -rf
 all: valign
 valign: sequenceAlignment.o graphClassMemberFunctions.o utils.o graph.o
 	$(CXX) -o valign sequenceAlignment.o graphClassMemberFunctions.o utils.o graph.o
-	chmod u+x test.sh
-	./test.sh
 sequenceAlignment.o: sequenceAlignment.cpp
 	$(CXX) $(CPPFLAGS) sequenceAlignment.cpp
 graphClassMemberFunctions.o: graphClassMemberFunctions.cpp

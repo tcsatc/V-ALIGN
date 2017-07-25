@@ -1,0 +1,9 @@
+digraph graphname {
+	rankdir=LR;
+	1 [label="1:ATTG"];
+	2 [label="CAAT"];
+	1 -> 1
+	1 -> 2
+	2 -> 1
+	2 -> 2
+}

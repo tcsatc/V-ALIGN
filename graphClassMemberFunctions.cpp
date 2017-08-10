@@ -83,8 +83,6 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		gfaFile.clear();
 		gfaFile.seekg(0, ios::beg);
 
-		bool *chk = new bool[V + 1]();
-
 		while(getline(gfaFile, line)){
 			istringstream iss(line);
 			iss >> _;
@@ -92,61 +90,28 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 				continue;
 			string u, v, t1, t2;
 			iss >> u >> t1 >> v >> t2;
-			if(u != v){
+			// urc - reverse complement of u
+			// vrc - reverse complement of v
 
-				// urc - reverse complement of u
-				// vrc - reverse complement of v
-
-				if(t1 == "+" && t2 == "+"){
-					adj[mapIx[u] + V].push_back(mapIx[v]);		// urc -> v 
-					adj[mapIx[v] + V].push_back(mapIx[u]);		// vrc -> u
-					inAdj[mapIx[v]].push_back(mapIx[u] + V);
-					inAdj[mapIx[u]].push_back(mapIx[v] + V);
-				}
-				else if(t1 == "+" && t2 == "-"){
-					adj[mapIx[u] + V].push_back(mapIx[v] + V);	// urc -> vrc
-					adj[mapIx[v]].push_back(mapIx[u]);			// v -> u
-					inAdj[mapIx[v] + V].push_back(mapIx[u] + V);
-					inAdj[mapIx[u]].push_back(mapIx[v]);
-				}
-				else if(t1 == "-" && t2 == "+"){
-					adj[mapIx[u]].push_back(mapIx[v]);			// u -> v
-					adj[mapIx[v] + V].push_back(mapIx[u] + V);	// vrc -> urc
-					inAdj[mapIx[v]].push_back(mapIx[u]);
-					inAdj[mapIx[u] + V].push_back(mapIx[v] + V);   
-				}
-				else{
-					adj[mapIx[u]].push_back(mapIx[v] + V);		// u -> vrc
-					adj[mapIx[v]].push_back(mapIx[u] + V);		// v -> urc
-					inAdj[mapIx[v] + V].push_back(mapIx[u]);
-					inAdj[mapIx[u] + V].push_back(mapIx[v]);
-				}
-
-				E += 2;
+			if(t1 == "+" && t2 == "+"){
+				adj[mapIx[u]].push_back(mapIx[v]);		// u -> v 
+				inAdj[mapIx[v]].push_back(mapIx[u]);
+			}
+			else if(t1 == "+" && t2 == "-"){
+				adj[mapIx[u]].push_back(mapIx[v] + V);	// u -> vrc
+				inAdj[mapIx[v] + V].push_back(mapIx[u]);
+			}
+			else if(t1 == "-" && t2 == "+"){
+				adj[mapIx[u] + V].push_back(mapIx[v]);			// urc -> v
+				inAdj[mapIx[v]].push_back(mapIx[u] + V);   
 			}
 			else{
-				if(t1 == "+" && t2 == "+"){
-					adj[mapIx[u] + V].push_back(mapIx[u]);		// urc -> u
-					inAdj[mapIx[u]].push_back(mapIx[u] + V);
-					E += 1;
-				}
-				else if(t1 == "-" && t2 == "-"){
-					adj[mapIx[u]].push_back(mapIx[u] + V);		// u -> urc
-					inAdj[mapIx[u] + V].push_back(mapIx[u]);
-					E += 1;
-				}
-				else if(chk[mapIx[u]] == 0){
-					adj[mapIx[u]].push_back(mapIx[u]);			// u -> u
-					adj[mapIx[u] + V].push_back(mapIx[u] + V);	// urc -> urc
-					inAdj[mapIx[u]].push_back(mapIx[u]);
-					inAdj[mapIx[u] + V].push_back(mapIx[u] + V);
-					E += 2;
-					chk[mapIx[u]] = 1;
-				}
+				adj[mapIx[u] + V].push_back(mapIx[v] + V);		// urc -> vrc
+				inAdj[mapIx[v] + V].push_back(mapIx[u] + V);
 			}
-		}
 
-		delete []chk;
+			E += 1;
+		}
 
 		for(int i = 1; i <= N; i++){
 			if(inAdj[i].empty()){
@@ -1259,7 +1224,7 @@ void graphClass::alignSequence(string x, bool globalAlignment, pair<float, float
 		seq += exSeqOut[i];
 		for(j = i + 1; j < path.size() && path[j].ff == path[i].ff && path[j].ss == path[j - 1].ss + 1; j++)
 			seq += exSeqOut[j], ed = path[j].ss;
-		out << '<' << revIx[path[i].ff] << ':' << to_string(st) << ':' << seq << ':' << to_string(ed) << "> ";
+		out << '<' << revIx[path[i].ff] << (path[i].ff <= V ? "" : "\'") << ':' << to_string(st) << ':' << seq << ':' << to_string(ed) << "> ";
 		i = j;
 		for(; i < path.size();){
 			seq = "";
@@ -1267,7 +1232,7 @@ void graphClass::alignSequence(string x, bool globalAlignment, pair<float, float
 			st = path[i].ss, ed = path[i].ss;
 			for(j = i + 1; j < path.size() && path[j].ff == path[i].ff && path[j].ss == path[j - 1].ss + 1; j++)
 				seq += exSeqOut[j], ed = path[j].ss;
-			out << "-> <" << revIx[path[i].ff] << ':' << to_string(st) << ':' << seq << ':' << to_string(ed) << "> ";
+			out << "-> <" << revIx[path[i].ff] << (path[i].ff <= V ? "" : "\'") << ':' << to_string(st) << ':' << seq << ':' << to_string(ed) << "> ";
 			i = j;
 		} 
 	}
@@ -1319,28 +1284,14 @@ void graphClass::visualizeGFA(fstream &dotFile){
 		for(int j = 0; j < adj[i].size(); j++){
 			dotFile << "\t" << i << " -> " << adj[i][j] << " [label=";
 
-			if(revIx[i] != revIx[adj[i][j]]){
-
-				if(i <= V && adj[i][j] <= V) 		// u -> v
-					dotFile << "\"(" << revIx[i] << "-" << revIx[adj[i][j]] << "+)\"";
-				else if(i <= V && adj[i][j] > V)	// u -> vrc
-					dotFile << "\"(" << revIx[i] << "-" << revIx[adj[i][j]] << "-)\"";
-				else if(i > V && adj[i][j] <= V)	// urc -> v
-					dotFile << "\"(" << revIx[i] << "+" << revIx[adj[i][j]] << "+)\"";
-				else if(i > V && adj[i][j] > V)		// urc -> vrc
-					dotFile << "\"(" << revIx[i] << "+" << revIx[adj[i][j]] << "-)\"";
-			}
-			else{
-
-				if(i <= V && adj[i][j] <= V)		// u -> u
-					dotFile << "\"(" << revIx[i] << "-" << revIx[adj[i][j]] << "+) / (" << revIx[i] << "+" << revIx[adj[i][j]] << "-)\"";
-				else if(i > V && adj[i][j] > V)		// urc -> urc
-					dotFile << "\"(" << revIx[i] << "-" << revIx[adj[i][j]] << "+) / (" << revIx[i] << "+" << revIx[adj[i][j]] << "-)\"";
-				else if(i <= V && adj[i][j] > V)	// u -> urc
-					dotFile << "\"(" << revIx[i] << "-" << revIx[adj[i][j]] << "-)\"";
-				else if(i > V && adj[i][j] <= V)	// urc -> u
-					dotFile << "\"(" << revIx[i] << "+" << revIx[adj[i][j]] << "+)\"";
-			}
+			if(i <= V && adj[i][j] <= V) 		// u -> v
+				dotFile << "\"(" << revIx[i] << "+" << revIx[adj[i][j]] << "+)\"";
+			else if(i <= V && adj[i][j] > V)	// u -> vrc
+				dotFile << "\"(" << revIx[i] << "+" << revIx[adj[i][j]] << "-)\"";
+			else if(i > V && adj[i][j] <= V)	// urc -> v
+				dotFile << "\"(" << revIx[i] << "-" << revIx[adj[i][j]] << "+)\"";
+			else if(i > V && adj[i][j] > V)		// urc -> vrc
+				dotFile << "\"(" << revIx[i] << "-" << revIx[adj[i][j]] << "-)\"";
 
 			dotFile << "];\n";
 		}

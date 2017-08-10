@@ -42,6 +42,15 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		V = 0, Va = 0;
 
 		while(getline(gfaFile, line)){
+			if(line == "/*"){
+				
+				while(getline(gfaFile, line)){
+					if(line == "*/")
+						break;
+				}
+
+				continue;
+			}
 			istringstream iss(line);
 			iss >> _;
 			if(_ == "S")
@@ -64,6 +73,15 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		label[N - 1] = "0";
 
 		while(getline(gfaFile, line)){
+			if(line == "/*"){
+				
+				while(getline(gfaFile, line)){
+					if(line == "*/")
+						break;
+				}
+
+				continue;
+			}
 			istringstream iss(line);
 			iss >> _;
 			if(_ != "S")
@@ -84,6 +102,15 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		gfaFile.seekg(0, ios::beg);
 
 		while(getline(gfaFile, line)){
+			if(line == "/*"){
+				
+				while(getline(gfaFile, line)){
+					if(line == "*/")
+						break;
+				}
+
+				continue;
+			}
 			istringstream iss(line);
 			iss >> _;
 			if(_ != "L")
@@ -137,6 +164,15 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		N = 1, Va = 0;
 
 		while(getline(inputGraph, line)){
+			if(line == "/*"){
+				
+				while(getline(inputGraph, line)){
+					if(line == "*/")
+						break;
+				}
+
+				continue;
+			}
 			string ix, lbl;
 			istringstream iss(line);
 			iss >> ix >> lbl;
@@ -166,6 +202,15 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		label[N - 1] = "0";
 
 		while(getline(inputGraph, line)){
+			if(line == "/*"){
+				
+				while(getline(inputGraph, line)){
+					if(line == "*/")
+						break;
+				}
+
+				continue;
+			}
 			string ix, lbl;
 			istringstream iss(line);
 			iss >> ix >> lbl;
@@ -185,6 +230,15 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		E = 0;
 
 		while(getline(inputGraph, line)){
+			if(line == "/*"){
+				
+				while(getline(inputGraph, line)){
+					if(line == "*/")
+						break;
+				}
+
+				continue;
+			}
 			string u, tmp, v;
 			istringstream iss(line);
 			iss >> u >> tmp;
@@ -223,6 +277,15 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		// Assuming there are no repeating node id in the dot file
 
 		while(getline(dotFile, line)){
+			if(line == "/*"){
+				
+				while(getline(dotFile, line)){
+					if(line == "*/")
+						break;
+				}
+
+				continue;
+			}
 			string ix, lbl;
 			istringstream iss(line);
 			iss >> ix >> lbl;
@@ -251,6 +314,15 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		map<string, string> dotMap;
 
 		while(getline(dotFile, line)){
+			if(line == "/*"){
+				
+				while(getline(dotFile, line)){
+					if(line == "*/")
+						break;
+				}
+
+				continue;
+			}
 			string ix, lbl, id, _;
 			istringstream iss(line);
 			iss >> ix >> lbl;
@@ -283,6 +355,15 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		E = 0;
 
 		while(getline(dotFile, line)){
+			if(line == "/*"){
+				
+				while(getline(dotFile, line)){
+					if(line == "*/")
+						break;
+				}
+
+				continue;
+			}
 			string u, tmp, v;
 			istringstream iss(line);
 			iss >> u >> tmp;
@@ -375,6 +456,15 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		int ct = 0;
 
 		while(getline(scoreFile, line)){
+			if(line == "/*"){
+				
+				while(getline(scoreFile, line)){
+					if(line == "*/")
+						break;
+				}
+
+				continue;
+			}
 			vector<float> tpf;
 
 			int p = 0;
@@ -410,8 +500,18 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 
 		Vc.clear();
 
-		while(getline(mfvsFile, line))
+		while(getline(mfvsFile, line)){
+			if(line == "/*"){
+				
+				while(getline(mfvsFile, line)){
+					if(line == "*/")
+						break;
+				}
+
+				continue;
+			}
 			Vc.push_back(mapIx[line]);
+		}
 	}
 
     printf("MFVS Done.\n");

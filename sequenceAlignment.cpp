@@ -1,8 +1,13 @@
-#include <bits/stdc++.h> 																																																																																																																																																																																																																																																			   /* Author: Shreyansh Chhajer */
+// Author: Shreyansh Chhajer 
+// Tata Consultancy Services Ltd
 
+#include <vector>
+#include <map>
+#include <utility>
 // For MFVS External Implementation
 #include "MFVSImp/graph.h"
 #include "MFVSImp/utils.h"
+#include <time.h>
 // #include "MFVSImp/utils.cpp"
 // #include "MFVSImp/graph.cpp"
 
@@ -134,7 +139,9 @@ int main(int argc, char** argv){
 	else if(adjList[adjList.size() - 1] == 't')
 		type = 2;
 
+
 	graphClass G(type, adjList, mfvsFile, scoreFile);
+
 
 	// fstream mfvsDot("mfvsDot.dot", fstream::out);
 	// G.mfvsVisualize(mfvsDot, 5);
@@ -166,9 +173,16 @@ int main(int argc, char** argv){
 	out << "E: " << G.E << "\nEa: " << G.Ea << "\nN: " << G.N << "\nVa: " << G.Va << "\n\n";
 
 	int testCase = 1;
+
+	//cout << "Align Time in Milliseconds =" << 
+	long tot_time = 0;
 	while(getline(seq, x)){
 		out << "Test Case: " << to_string(testCase) << "\n";
+		long start_time = chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now().time_since_epoch()).count();
 		G.alignSequence(x, globalAlign, penaltyParam, out, debug);	
+		long end_time = chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now().time_since_epoch()).count();
+		tot_time += end_time - start_time;
+
 		string dotFileName = dotName  + name + "." + to_string(testCase) + ".dot";
 		
 		fstream dotFile(dotFileName, fstream::out);
@@ -176,8 +190,10 @@ int main(int argc, char** argv){
 		dotFile.close();
 
 		printf("Test Case - %d Done\n", testCase);
+		
 		testCase += 1;
 	}
+	cout << "Avg alignment time  = " << ((double)(tot_time)/((testCase -1) * 1000.0)) << " Sec." << endl; 
 
 	out.close();
 	seq.close();

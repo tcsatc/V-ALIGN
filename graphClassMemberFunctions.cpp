@@ -1,7 +1,17 @@
-#include <bits/stdc++.h> 																																																																																																																																																																																																																																																			   /* Author: Shreyansh Chhajer */
+// Author: Shreyansh Chhajer 
+// Tata Consultancy Services Ltd
 
+#include <vector>
+#include <map>
+#include <utility>
+#include <cfloat>
+#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <set>
+#include <stack>
 #include "graphClass.h"
-#include "MFVSImp/graph.h"
 
 // returns the complement nucleotide for the given nucleotide
 char graphClass::revChar(char ch){
@@ -492,9 +502,11 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
     printf("Reading Adjacency List Done.\n");
 
     // Computes the minimum feedback vertex set
-    if(mfvsName.empty())
-	    Vc = mfvsExternalImplementation();
-	else{
+    if(mfvsName.empty()){
+	    //Vc = mfvsExternalImplementation();
+		printf("Error: Require MFVS list as a file... \n");
+		exit(-1);
+	}else{
 		fstream mfvsFile(mfvsName, fstream::in);
 		string line;
 
@@ -511,6 +523,7 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 				continue;
 			}
 			Vc.push_back(mapIx[line]);
+			//cout << "MFVS Vertex: " << mapIx[line] << endl;
 		}
 	}
 
@@ -658,18 +671,10 @@ void graphClass::computeVertexWeightedDistance(){
 }
 
 // Returns the minimum feedback vertex set as computed using it's external implementation
+/*
 vector<int> graphClass::mfvsExternalImplementation(){
-	Graph g(N + 1);
-	for(int i = 0; i <= N; i++)
-		g.addVertex(i);
-
-	for(int i = 0; i <= N; i++){
-		for(int j = 0; j < adj[i].size(); j++)
-			g.addEdge(i, adj[i][j]);
-	}
-
-	return g.minimumFeedbackVertexSet(true);
 }
+*/
 
 // Shortest Edge Distance from ith base of node u to jth base of node v
 int graphClass::edgeDist(int u, int i, int v, int j){

@@ -1,6 +1,10 @@
-#include <bits/stdc++.h> 																																																																																																																																																																																																																																																			   /* Author: Shreyansh Chhajer */
-
+// Author: Shreyansh Chhajer 
+// Tata Consultancy Services Ltd
 using namespace std;
+
+#include <vector>
+#include <map>
+#include <utility>
 
 #define ff first
 #define ss second
@@ -19,7 +23,7 @@ public:
 	// Number of edges in the virtual graph								
 	int Ea;
 	// Number of nodes in the gfa file
-	int V = 0;																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
+	int V = 0;															
 	// Number of nodes in the genome graph
 	int N;
 	// Number of nodes in the Graph with each node having label size of 1

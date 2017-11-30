@@ -1,5 +1,7 @@
 
-System Requirements: Linux, g++ compiler, graphviz tool support (if you want to visualize the alignment output)
+- System Requirements: Linux, g++ compiler, graphviz tool support (if you want to visualize the alignment output)
+
+- The MFVS implementation from the MFVS project (https://github.com/ablondin/mfvs/) is used as a library to compute the Minimum Feedback Vertex Set. A version of this code is present in the MFVSImp folder.
 
 Usage: ./valign [OPTION]... [FILE]...
 Arguments.

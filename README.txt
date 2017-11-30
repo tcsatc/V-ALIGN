@@ -1,5 +1,5 @@
 
-- System Requirements: Linux, g++ compiler, graphviz tool support (if you want to visualize the alignment output)
+- System Requirements: g++ compiler, graphviz tool (https://www.graphviz.org/) support (if you want to visualize the alignment output)
 
 - valign tool required the MVFS set to be input as a separate file consisting of a new line separated list of feedback vertex set.
 

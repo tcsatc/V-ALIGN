@@ -1,11 +1,5 @@
 
-System Requirements: Linux, g++ compiler, graphviz tool support (for visualizing the alignment output)
-
-Installation:
-sudo apt-get install g++       /* for compiler */
-<< download (or) git clone the repository >>  
-make
-sudo apt-get install graphviz  /* for visualizing alignment outputs */
+System Requirements: Linux, g++ compiler, graphviz tool support (if you want to visualize the alignment output)
 
 Usage: ./valign [OPTION]... [FILE]...
 Arguments.
@@ -41,7 +35,7 @@ Arguments.
 	-DOT directoryPath      It will create a folder with a suffix "DotVisuals" in the directory given in the path and 
                          	stores the dot files and shell script in the created directory.
 
-Ref: 
+Reference: 
 Sequence Alignment On Directed Graphs
 Kavya Vaddadi, Naveen Sivadasan, Kshitij Tayal, Rajgopal Srinivasan
 http://www.biorxiv.org/content/early/2017/04/06/124941

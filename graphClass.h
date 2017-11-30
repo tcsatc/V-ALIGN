@@ -2,9 +2,24 @@
 // Tata Consultancy Services Ltd
 using namespace std;
 
+
+#include <bits/stdc++.h>
+#include <stdio.h>
+#include <string.h>
+
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <algorithm>
 #include <vector>
+#include <list>
+#include <queue>
+#include <set>
+#include <stack>
 #include <map>
 #include <utility>
+
 
 #define ff first
 #define ss second

@@ -4,15 +4,9 @@
 #include <vector>
 #include <map>
 #include <utility>
-// For MFVS External Implementation
-#include "MFVSImp/graph.h"
-#include "MFVSImp/utils.h"
 #include <time.h>
-// #include "MFVSImp/utils.cpp"
-// #include "MFVSImp/graph.cpp"
 
 #include "graphClass.h"
-// #include "graphClassMemberFunctions.h"
 
 using namespace std;
 

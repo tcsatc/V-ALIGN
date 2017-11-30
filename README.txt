@@ -5,6 +5,10 @@
 
 [ For instance, the MFVS implementation from the MFVS project (https://github.com/ablondin/mfvs/) could be used to create the MFVS vertex list ]
 
+- edna.mat is from ftp://ftp.ncbi.nih.gov/blast/matrices/NUC.4.4
+        
+
+
 
 Usage: ./valign [OPTION]... [FILE]...
 Arguments.

@@ -1,15 +1,42 @@
 
 - System Requirements: g++ compiler, graphviz tool (https://www.graphviz.org/) support (if you want to visualize the alignment output)
 
-- valign tool requires the feedback vertex set (FVS) to be input as a separate file consisting of a new line separated list of feedback vertices.
-
-[ For instance, the MFVS implementation from the MFVS project (https://github.com/ablondin/mfvs/) could be used to create FVS.] 
-
 - edna.mat is from ftp://ftp.ncbi.nih.gov/blast/matrices/NUC.4.4
-        
+
 Eg:
 
-./valign -g test/tiny.adj  -x test/simple.ip -v test/tiny.fvs -o tiny.out
+./valign -g test/tiny.adj  -x test/simple.ip -v test/tiny.fvs -o tiny.out -dot mydots
+
+tiny.adj   : graph file;
+simple.ip  : query sequences
+tiny.fvs   : feedback vertex set
+tiny.out   : output file to store alignment
+mydots     : folder where all the dot files (one for each query sequence) will be stored. These can then be visualised. The folder would contain dotRun.sh which when run creates the corresponding .pdf files for alignment visualization.
+
+
+- valign tool requires the feedback vertex set (FVS) to be input as a separate file consisting of a new line separated list of feedback vertices. [ For instance, the MFVS implementation from the MFVS project (https://github.com/ablondin/mfvs/) could be used to create FVS.]
+
+For convenience, we have created an external application derived from the MFVS project (https://github.com/ablondin/mfvs/) to create FVS. This application is present in the utils folder.
+
+Usage:
+utils/genfvs <graph_file>               [ The graph_file can be adj/gfa/dot format.]
+This creates an fvs file which can be directly input for the alignment using -v option.
+
+
+
+Full workflow:
+Suppose we have an input file graph.adj and the query sequences in query.in
+
+step 1. utils/genfvs graph.adj
+- this will create an output file graph.adj.fvs
+step 2. ./valign -g graph.adj -v graph.adj.fvs -x query.in -o output.txt -dot mydots
+- Algnement outputs in output.txt and the .dot files are present in mydots folder.
+
+
+
+
+
+Detailed usage:
 
 Usage: ./valign [OPTION]... [FILE]...
 Arguments.

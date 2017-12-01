@@ -141,7 +141,7 @@ int main(int argc, char** argv){
 	int type = 1; //adj format
 	string suff = adjList.substr(adjList.length() - 3, 3);
 	if(suff == "gfa") {
-		type == 0;
+		type = 0;
 	}else if(suff == "dot"){
 		type = 2;
 	}

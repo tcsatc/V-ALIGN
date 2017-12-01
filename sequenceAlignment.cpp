@@ -53,7 +53,7 @@ void printHelp(){
 
 int main(int argc, char** argv){
 
-	int _ = system("clear");
+	int _; // = system("clear");
 	// clock_gettime(CLOCK_MONOTONIC,&st);
 	
 	if(argc == 1){
@@ -74,9 +74,10 @@ int main(int argc, char** argv){
 
 	string::size_type sz;
 
-	if(argc >= 3)	
-		printf("%s Started\n", argv[2]);
+	if(argc >= 3) cout << "Input graph : " << argv[2] << endl;
 	string dotName = "";
+
+	bool genadjlist = false;
 
 	for(int i = 1; i < argc - 1; i += 2){
 		string tp = argv[i];
@@ -102,6 +103,8 @@ int main(int argc, char** argv){
 			dotName = argv[i + 1];
 		else if(tp == "-s" || tp == "-S")
 			scoreFile = argv[i + 1];
+		else if(tp == "-genadjlist")
+			genadjlist = true;
 	}
 	if(argc > 1){
 		string tp = argv[argc - 1];
@@ -111,28 +114,39 @@ int main(int argc, char** argv){
 			globalAlign = false;
 	}
 
-	if(adjList == "" || seqFile == ""){
-		printf("Please provide the necessary file names.\n");
+	
+	if(adjList == ""){
+		cout << "Please provide graph file " << endl;
+		exit(1);
+	}
+
+	if(genadjlist){
+		string listfile = adjList;
+		listfile.append(".list");
+		exit(0);
+	}
+
+	if(seqFile == ""){
+		printf("Please provide the query file.\n");
 		return 0;
 	}
 
-	string name;
-	for(int i = adjList.size() - 5; i >= 0 && adjList[i] != '/'; i--)
-		name += adjList[i];
-
-	reverse(name.begin(), name.end());
-
-	dotName += name + "DotVisuals/";
+	if(dotName.length() == 0) dotName = "DotVisuals";
+	dotName.append("/");
+	//dotName += name + "DotVisuals/";
 	string systemCall = "mkdir " + dotName; 
 
 	_ = system(systemCall.c_str());
 
-	int type = 1;
-	if(adjList[adjList.size() - 1] == 'a')
-		type = 0;
-	else if(adjList[adjList.size() - 1] == 't')
+	int type = 1; //adj format
+	string suff = adjList.substr(adjList.length() - 3, 3);
+	if(suff == "gfa") {
+		type == 0;
+	}else if(suff == "dot"){
 		type = 2;
+	}
 
+	//cout << "File format : " << type << " " << suff << endl;
 
 	graphClass G(type, adjList, mfvsFile, scoreFile);
 
@@ -171,7 +185,7 @@ int main(int argc, char** argv){
 	//cout << "Align Time in Milliseconds =" << 
 	long tot_time = 0;
 	while(getline(seq, x)){
-		out << "Test Case: " << to_string(testCase) << "\n";
+		out << "Qry Seq: " << to_string(testCase) << "\n";
 		long start_time = chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now().time_since_epoch()).count();
 		G.alignSequence(x, globalAlign, penaltyParam, out, debug);	
 		long end_time = chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now().time_since_epoch()).count();
@@ -183,7 +197,7 @@ int main(int argc, char** argv){
 		G.writeDotFile(dotFile);	
 		dotFile.close();
 
-		printf("Test Case - %d Done\n", testCase);
+		printf("Qry seq - %d Done\n", testCase);
 		
 		testCase += 1;
 	}
@@ -198,6 +212,11 @@ int main(int argc, char** argv){
 		dotFileRun << "dot " << name + "." + to_string(i) + ".dot" << " -Tpdf -o " << name + "." + to_string(i) + ".pdf\n";
 
 	dotFileRun.close();
+
+	cout << "\nAlignment output is in " <<  outFile << endl;
+	cout << "Dot files for visualization are present in the folder " <<  dotName << endl;
+	
+
 
 	// clock_gettime(CLOCK_MONOTONIC,&en);
 	// runtime = en.tv_sec - st.tv_sec+(en.tv_nsec-st.tv_nsec)/(1e9);

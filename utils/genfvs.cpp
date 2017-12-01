@@ -1,3 +1,16 @@
+//
+/*
+
+
+You can include the files genfvs.cpp graphClass.h and graphClassMemberFunctions.cpp into the MFVS project https://github.com/ablondin/mfvs/ and then complile as 
+
+g++ genfvs.cpp graphClassMemberFunctions.cpp utils.cpp graph.cpp -o genfvs -O9 -std=c++11
+
+*/
+
+
+
+
 #include <bits/stdc++.h>
 // For MFVS External Implementation
 #include "graph.h"

@@ -7,8 +7,9 @@
 
 - edna.mat is from ftp://ftp.ncbi.nih.gov/blast/matrices/NUC.4.4
         
+Eg:
 
-
+./valign -g test/tiny.adj  -x test/simple.ip -v test/tiny.fvs -o tiny.out
 
 Usage: ./valign [OPTION]... [FILE]...
 Arguments.
@@ -38,7 +39,7 @@ Arguments.
 	-D filePath             By default the output will be stored in a "debug.txt" file in the current directory.
 
 	-v filePath             tag v or V represents that the path is for a Feedback Vertex Set file.
-	-V filePath             This is not mandatory argument. If this is included then the function to calculate FVS will be bypassed.
+	-V filepath
 
 	-dot directoryPath      tag dot or DOT represents that the path is for a directory to store the generated dot files.
 	-DOT directoryPath      It will create a folder with a suffix "DotVisuals" in the directory given in the path and 

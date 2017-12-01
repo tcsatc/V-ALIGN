@@ -1,9 +1,9 @@
 
 - System Requirements: g++ compiler, graphviz tool (https://www.graphviz.org/) support (if you want to visualize the alignment output)
 
-- valign tool required the MVFS set to be input as a separate file consisting of a new line separated list of feedback vertex set.
+- valign tool requires the feedback vertex set (FVS) to be input as a separate file consisting of a new line separated list of feedback vertices.
 
-[ For instance, the MFVS implementation from the MFVS project (https://github.com/ablondin/mfvs/) could be used to create the MFVS vertex list ]
+[ For instance, the MFVS implementation from the MFVS project (https://github.com/ablondin/mfvs/) could be used to create FVS.] 
 
 - edna.mat is from ftp://ftp.ncbi.nih.gov/blast/matrices/NUC.4.4
         

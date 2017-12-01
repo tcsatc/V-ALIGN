@@ -527,7 +527,7 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 		}
 	}
 
-    printf("MFVS Done.\n");
+    ////printf("MFVS Done.\n");
 
     // Computes the topological order of vertices
     computeTopologicalOrder();
@@ -556,6 +556,7 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 
     printf("Computing Vertex Weighted Distance Done.\n");
 }
+
 
 // Computing shortest vertex weighted path considering each node as source using Dijkstra's Algorithm (Only for feedback Vertex Set)
 void graphClass::computeVertexWeightedDistance(){
@@ -1018,7 +1019,7 @@ void graphClass::alignSequence(string x, bool globalAlignment, pair<float, float
 	printf("Starting MRQ Computation.\n");
 	computeMatricesMRQ(x, globalAlignment, penalty);
 
-	printf("MRQ Computation Done.\n");
+	//printf("MRQ Computation Done.\n");
 
 	out << "\ta) Input Sequence: " << x << "\n";
 	
@@ -1366,7 +1367,7 @@ void graphClass::alignSequence(string x, bool globalAlignment, pair<float, float
 	for(int i = 1; i <= Vc.size(); i++)
 		delete []afvs[i];
 
-	printf("Match - %d\n", (resSeq == resGraph));
+	//printf("Match - %d\n", (resSeq == resGraph));
 }
 
 void graphClass::visualizeGFA(fstream &dotFile){

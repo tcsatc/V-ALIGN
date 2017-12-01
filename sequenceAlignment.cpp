@@ -131,7 +131,7 @@ int main(int argc, char** argv){
 		return 0;
 	}
 
-	if(dotName.length() == 0) dotName = "DotVisuals";
+	if(dotName.length() == 0) dotName = "dotVisuals";
 	dotName.append("/");
 	//dotName += name + "DotVisuals/";
 	string systemCall = "mkdir " + dotName; 
@@ -191,7 +191,7 @@ int main(int argc, char** argv){
 		long end_time = chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now().time_since_epoch()).count();
 		tot_time += end_time - start_time;
 
-		string dotFileName = dotName  + name + "." + to_string(testCase) + ".dot";
+		string dotFileName = dotName  + "qry." + to_string(testCase) + ".dot";
 		
 		fstream dotFile(dotFileName, fstream::out);
 		G.writeDotFile(dotFile);	
@@ -206,10 +206,10 @@ int main(int argc, char** argv){
 	out.close();
 	seq.close();
 
-	fstream dotFileRun(dotName + "dotRun" + name + ".sh", fstream::out);
+	fstream dotFileRun(dotName + "dotRun" +  ".sh", fstream::out);
 
 	for(int i = 1; i < testCase; i++)
-		dotFileRun << "dot " << name + "." + to_string(i) + ".dot" << " -Tpdf -o " << name + "." + to_string(i) + ".pdf\n";
+		dotFileRun << "dot " << "qry." + to_string(i) + ".dot" << " -Tpdf -o " <<  "qry." + to_string(i) + ".pdf\n";
 
 	dotFileRun.close();
 

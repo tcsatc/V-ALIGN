@@ -522,7 +522,11 @@ graphClass::graphClass(int type, string inputFile, string mfvsName, string score
 
 				continue;
 			}
-			Vc.push_back(mapIx[line]);
+			if(type == 0){
+				Vc.push_back(atoi(line.c_str()));
+			}else{
+				Vc.push_back(mapIx[line]);
+			}
 			//cout << "MFVS Vertex: " << mapIx[line] << endl;
 		}
 	}

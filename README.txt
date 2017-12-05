@@ -1,4 +1,4 @@
-VALIGN: Sequence Alignment on Directed Graphs
+## VALIGN: Sequence Alignment on Directed Graphs
 ==================
 - System Requirements: g++ compiler, graphviz tool (https://www.graphviz.org/) support (if you want to visualize the alignment output)
 

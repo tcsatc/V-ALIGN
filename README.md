@@ -8,14 +8,14 @@ Eg:
 
 ./valign -g test/tiny.adj  -x test/simple.ip -v test/tiny.fvs -o tiny.out -dot mydots
 
-tiny.adj   : graph file;
+tiny.adj   : graph file
 simple.ip  : query sequences
 tiny.fvs   : feedback vertex set
 tiny.out   : output file to store alignment
 mydots     : folder where all the dot files (one for each query sequence) will be stored. These can then be visualised. The folder would contain dotRun.sh which when run creates the corresponding .pdf files for alignment visualization.
 
 
-- valign tool requires the feedback vertex set (FVS) to be input as a separate file consisting of a new line separated list of feedback vertices. [ For instance, the MFVS implementation from the MFVS project (https://github.com/ablondin/mfvs/) could be used to create FVS.]
+- V-ALIGN tool requires the feedback vertex set (FVS) to be input as a separate file consisting of a new line separated list of feedback vertices. [ For instance, the MFVS implementation from the MFVS project (https://github.com/ablondin/mfvs/) could be used to create FVS.]
 
 For convenience, we have created an external application derived from the MFVS project (https://github.com/ablondin/mfvs/) to create FVS. This application is present in the utils folder.
 

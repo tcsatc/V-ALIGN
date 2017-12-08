@@ -1,4 +1,4 @@
-# **VALIGN : Sequence Alignment on Directed Graphs**
+# **V-ALIGN : Sequence Alignment on Directed Graphs**
 
 - System Requirements: g++ compiler, graphviz tool (https://www.graphviz.org/) support (if you want to visualize the alignment output)
 
@@ -30,6 +30,7 @@ Suppose we have an input file graph.adj and the query sequences in query.in
 
 step 1. utils/genfvs graph.adj
 - this will create an output file graph.adj.fvs
+
 step 2. ./valign -g graph.adj -v graph.adj.fvs -x query.in -o output.txt -dot mydots
 - Algnement outputs in output.txt and the .dot files are present in mydots folder.
 

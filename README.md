@@ -9,9 +9,13 @@ Eg:
 ./valign -g test/tiny.adj  -x test/simple.ip -v test/tiny.fvs -o tiny.out -dot mydots
 
 tiny.adj   : graph file
+
 simple.ip  : query sequences
+
 tiny.fvs   : feedback vertex set
+
 tiny.out   : output file to store alignment
+
 mydots     : folder where all the dot files (one for each query sequence) will be stored. These can then be visualised. The folder would contain dotRun.sh which when run creates the corresponding .pdf files for alignment visualization.
 
 
@@ -32,7 +36,7 @@ step 1. utils/genfvs graph.adj
 - this will create an output file graph.adj.fvs
 
 step 2. ./valign -g graph.adj -v graph.adj.fvs -x query.in -o output.txt -dot mydots
-- Algnement outputs in output.txt and the .dot files are present in mydots folder.
+- alignment outputs in output.txt and the .dot files are present in mydots folder.
 
 
 
